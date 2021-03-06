@@ -7,8 +7,9 @@ import { ApiService } from '../api.service';
   styleUrls: ['./front-page.component.scss'],
 })
 export class FrontPageComponent implements OnInit {
-  multi: any[];
-  view: any[] = [700, 300];
+  multi: any[] = [];
+  view: any[] = [700, 700];
+  cities = ['KU179', 'KU232', 'KU301'];
 
   // options
   legend: boolean = true;
@@ -38,30 +39,46 @@ export class FrontPageComponent implements OnInit {
           code: 'Vuosi',
           selection: {
             filter: 'item',
-            values: ['2019'],
+            values: ['2019', '2018', '2017'],
           },
         },
         {
           code: 'Alue',
           selection: {
             filter: 'item',
-            values: ['KU179'],
-          },
-        },
-        {
-          code: 'Koulutusaste',
-          selection: {
-            filter: 'item',
-            values: ['SSS', '3T8', '3', '4', '5', '6', '7', '8', '9'],
+            values: this.cities,
           },
         },
       ],
       response: {
-        format: 'json-stat',
+        format: 'json',
       },
     };
-    this.apiService.getConfig(body).subscribe((res) => {
-      console.log(res);
-    });
+
+    this.apiService.getConfig(body).subscribe(
+      (res) => {
+        console.log(res);
+        let dataSet = [];
+        this.cities.forEach((city) => {
+          dataSet.push({ name: city, series: [] });
+        });
+
+        res.data.forEach((element) => {
+          dataSet.forEach((city) => {
+            if (element.key[1] === city.name) {
+              city.series.push({
+                name: element.key[0],
+                value: element.values[0],
+              });
+            }
+          });
+        });
+
+        this.multi = dataSet;
+      },
+      (err) => {
+        console.log('Fail');
+      }
+    );
   }
 }
