@@ -9,7 +9,7 @@ import { ApiService } from '../api.service';
 export class FrontPageComponent implements OnInit {
   multi: any[] = [];
   view: any[] = [700, 700];
-  cities = ['KU179', 'KU232', 'KU301'];
+  cities = ['40270', '40740'];
 
   // options
   legend: boolean = true;
@@ -36,17 +36,17 @@ export class FrontPageComponent implements OnInit {
     let body = {
       query: [
         {
-          code: 'Vuosi',
-          selection: {
-            filter: 'item',
-            values: ['2019', '2018', '2017'],
-          },
-        },
-        {
-          code: 'Alue',
+          code: 'Postinumeroalue',
           selection: {
             filter: 'item',
             values: this.cities,
+          },
+        },
+        {
+          code: 'Tiedot',
+          selection: {
+            filter: 'item',
+            values: ['he_vakiy', 'ko_yl_kork', 'pt_opisk'],
           },
         },
       ],
@@ -55,22 +55,21 @@ export class FrontPageComponent implements OnInit {
       },
     };
 
+    let dataSet = [];
+    this.cities.forEach((city) => {
+      dataSet.push({ name: city, series: [] });
+    });
+
     this.apiService.getConfig(body).subscribe(
       (res) => {
         console.log(res);
-        let dataSet = [];
-        this.cities.forEach((city) => {
-          dataSet.push({ name: city, series: [] });
-        });
 
-        res.data.forEach((element) => {
-          dataSet.forEach((city) => {
-            if (element.key[1] === city.name) {
-              city.series.push({
-                name: element.key[0],
-                value: element.values[0],
-              });
-            }
+        dataSet.forEach((city, cityIndex) => {
+          res.data[cityIndex].values.forEach((element, elementIndex) => {
+            city.series.push({
+              name: res.columns[elementIndex + 1].text,
+              value: element,
+            });
           });
         });
 
