@@ -80,4 +80,5 @@ export class FrontPageComponent implements OnInit {
         console.log('Fail');
       }
     );
+  }
 }
