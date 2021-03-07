@@ -9,7 +9,7 @@ import { ApiService } from '../api.service';
 export class FrontPageComponent implements OnInit {
   multi: any[] = [];
   view: any[] = [700, 700];
-  cities = ['40270', '40740'];
+  cities = ['61950', '61980'];
 
   // options
   legend: boolean = true;
@@ -19,7 +19,7 @@ export class FrontPageComponent implements OnInit {
   yAxis: boolean = true;
   showYAxisLabel: boolean = true;
   showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Year';
+  xAxisLabel: string = 'Postal area';
   yAxisLabel: string = 'Population';
   timeline: boolean = true;
 
@@ -66,6 +66,7 @@ export class FrontPageComponent implements OnInit {
 
         dataSet.forEach((city, cityIndex) => {
           res.data[cityIndex].values.forEach((element, elementIndex) => {
+            city.name = res.data[cityIndex].key;
             city.series.push({
               name: res.columns[elementIndex + 1].text,
               value: element,
@@ -79,5 +80,4 @@ export class FrontPageComponent implements OnInit {
         console.log('Fail');
       }
     );
-  }
 }
