@@ -30,8 +30,8 @@ export class FrontPageComponent implements OnInit {
   };
 
   checkoutForm = this.formBuilder.group({
-    name: '',
-    address: '',
+    postnumber: '',
+    specs: '',
   });
 
   constructor(
@@ -44,8 +44,8 @@ export class FrontPageComponent implements OnInit {
   }
 
   setLists() {
-    console.log('Moi', this.checkoutForm.value.name);
-    this.postNumbers = this.checkoutForm.value.name.split(',');
+    console.log('Moi', this.checkoutForm.value.postnumber);
+    this.postNumbers = this.checkoutForm.value.postnumber.split(',');
 
     this.showConfig();
   }

@@ -1,15 +1,15 @@
 <form [formGroup]="checkoutForm" (submit)="setLists()">
   <div>
-    <label for="name"> Name </label>
-    <input id="name" type="text" formControlName="name" />
+    <label for="postnumber"> Post number </label>
+    <input id="postnumber" type="text" formControlName="postnumber" />
   </div>
 
   <div>
-    <label for="address"> Address </label>
-    <input id="address" type="text" formControlName="address" />
+    <label for="specs"> Specs </label>
+    <input id="specs" type="text" formControlName="specs" />
   </div>
 
-  <button class="button" type="submit">Purchase</button>
+  <button class="button" type="submit">Search</button>
 </form>
 
 <ngx-charts-bar-vertical-2d
