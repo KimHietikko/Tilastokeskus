@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -9,7 +10,8 @@ import { ApiService } from '../api.service';
 export class FrontPageComponent implements OnInit {
   multi: any[] = [];
   view: any[] = [700, 700];
-  cities = ['61950', '61980'];
+  postNumbers = ['61950', '61980'];
+  values = ['he_vakiy', 'ko_yl_kork', 'pt_opisk'];
 
   // options
   legend: boolean = true;
@@ -26,9 +28,25 @@ export class FrontPageComponent implements OnInit {
   colorScheme = {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5'],
   };
-  constructor(private apiService: ApiService) {}
+
+  checkoutForm = this.formBuilder.group({
+    name: '',
+    address: '',
+  });
+
+  constructor(
+    private apiService: ApiService,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit(): void {
+    this.showConfig();
+  }
+
+  setLists() {
+    console.log('Moi', this.checkoutForm.value.name);
+    this.postNumbers = this.checkoutForm.value.name.split(',');
+
     this.showConfig();
   }
 
@@ -39,14 +57,14 @@ export class FrontPageComponent implements OnInit {
           code: 'Postinumeroalue',
           selection: {
             filter: 'item',
-            values: this.cities,
+            values: this.postNumbers,
           },
         },
         {
           code: 'Tiedot',
           selection: {
             filter: 'item',
-            values: ['he_vakiy', 'ko_yl_kork', 'pt_opisk'],
+            values: this.values,
           },
         },
       ],
@@ -56,7 +74,7 @@ export class FrontPageComponent implements OnInit {
     };
 
     let dataSet = [];
-    this.cities.forEach((city) => {
+    this.postNumbers.forEach((city) => {
       dataSet.push({ name: city, series: [] });
     });
 
