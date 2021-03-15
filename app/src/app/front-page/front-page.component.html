@@ -4,9 +4,15 @@
     <input id="postnumber" type="text" formControlName="postnumber" />
   </div>
 
-  <div>
-    <label for="specs"> Specs </label>
-    <input id="specs" type="text" formControlName="specs" />
+  <div *ngFor="let choice of checks; let i = index" class="col-md-2">
+    <label>
+      <input
+        type="checkbox"
+        [value]="choice.value"
+        (change)="onCheckChange($event)"
+      />
+      {{ choice.description }}
+    </label>
   </div>
 
   <button class="button" type="submit">Search</button>
