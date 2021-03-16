@@ -1,7 +1,12 @@
 <form [formGroup]="checkoutForm" (submit)="setLists()">
   <div>
-    <label for="postnumber"> Post number </label>
-    <input id="postnumber" type="text" formControlName="postnumber" />
+    <label for="postnumber"> Postinumero(t) </label>
+    <input
+      id="postnumber"
+      type="text"
+      formControlName="postnumber"
+      placeholder="Postinumerot pilkulla erotettuna ja ilman välilyöntiä"
+    />
   </div>
 
   <div *ngFor="let choice of checks; let i = index" class="col-md-2">
@@ -15,7 +20,7 @@
     </label>
   </div>
 
-  <button class="button" type="submit">Search</button>
+  <button class="button" id="searchButton" type="submit">Hae</button>
 </form>
 
 <ngx-charts-bar-vertical-2d

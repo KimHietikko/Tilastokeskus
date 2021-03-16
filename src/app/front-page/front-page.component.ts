@@ -216,8 +216,8 @@ export class FrontPageComponent {
   yAxis: boolean = true;
   showYAxisLabel: boolean = true;
   showXAxisLabel: boolean = true;
-  xAxisLabel: string = 'Postal area';
-  yAxisLabel: string = 'Population';
+  xAxisLabel: string = 'Postinumero';
+  yAxisLabel: string = 'Lukumäärä';
   timeline: boolean = true;
 
   colorScheme = {
@@ -235,7 +235,6 @@ export class FrontPageComponent {
   ) {}
 
   setLists() {
-    console.log('Moi', this.checkoutForm.value.postnumber);
     this.postNumbers = this.checkoutForm.value.postnumber.split(',');
 
     this.showConfig();
