@@ -1,4 +1,5 @@
-# App
+# Tilastokeskus
+This program is for finding statistics from different postal code areas. The program uses data from the Tilastokeskus and the program shows them in a graphical format. The program is written in Angular and deployed in Netlify. You can test this program in here: https://tilastokeskus.netlify.app/
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.
 
