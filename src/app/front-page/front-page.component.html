@@ -1,38 +1,33 @@
-<form [formGroup]="checkoutForm" (submit)="setLists()">
-  <div>
-    <label for="postnumber"> Postinumero(t) </label>
-    <input
-      id="postnumber"
-      type="text"
-      formControlName="postnumber"
-      placeholder="Postinumerot pilkulla erotettuna ja ilman välilyöntiä"
-    />
-  </div>
+<form [formGroup]="checkoutForm" (submit)="submitValues()">
+    <div>
+        <mat-form-field class="postNumbersList" appearance="fill">
+            <mat-label>Postinumero(t)</mat-label>
+            <mat-select [formControl]="checkoutForm.get('postNumbers')" multiple>
+                <mat-option *ngFor="let postnumber of postNumberList" [value]="postnumber.value">{{ postnumber.description }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
 
-  <div *ngFor="let choice of checks; let i = index" class="col-md-2">
-    <label>
-      <input
-        type="checkbox"
-        [value]="choice.value"
-        (change)="onCheckChange($event)"
-      />
-      {{ choice.description }}
-    </label>
-  </div>
+    <div *ngFor="let choice of checks; let i = index" class="col-md-2">
+        <label>
+            <input type="checkbox" [value]="choice.value" (change)="onCheckChange($event)" />
+            {{ choice.description }}
+        </label>
+    </div>
 
-  <button class="button" id="searchButton" type="submit">Hae</button>
+    <button [disabled]="checkoutForm.invalid" class="button" id="searchButton" mat-raised-button color="primary">Hae</button>
 </form>
 
 <ngx-charts-bar-vertical-2d
-  [view]="view"
-  [scheme]="colorScheme"
-  [legend]="legend"
-  [showXAxisLabel]="showXAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [xAxis]="xAxis"
-  [yAxis]="yAxis"
-  [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="yAxisLabel"
-  [results]="multi"
+    [view]="view"
+    [scheme]="colorScheme"
+    [legend]="legend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxis]="xAxis"
+    [yAxis]="yAxis"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    [results]="multi"
 >
 </ngx-charts-bar-vertical-2d>
